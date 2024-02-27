@@ -33,7 +33,13 @@ float Vector::magnitude() {
 Vector Vector::Normalize() {
     
     Vector resultVector;
+
+    float length = magnitude();
+    resultVector.x = x / length;
+    resultVector.y = y / length;
+
     return resultVector;
+
 }
 
 Vector Vector::AddVector(Vector vec) {
@@ -68,6 +74,8 @@ int main() {
 
     Point C = A.AddVector(B);
     
-    cout << "(" << C.x << ", " << C.y << ")";
-    cout << B.magnitude();
+    cout << "(" << C.x << ", " << C.y << ")" << endl;
+    cout << B.magnitude() << endl;
+    cout << B.Normalize().magnitude() << endl;
+
 }
