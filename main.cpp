@@ -1,81 +1,58 @@
 #include <iostream>
-
 using namespace std;
 
-class Vector {
-    public:
-    
-        float x, y;
-        float magnitude();
-        Vector AddVector(Vector vec);
-        Vector SubtractVector(Vector vec);
-        Vector ScaleBy(float value);
-        Vector Normalize();
-
-};
-
 class Point {
-    public:
-        
-        float x, y;
-        Point AddVector(Vector vec);
-        Point SubtractVector(Vector vec);
-        Point DistanceToPoint(Point point);
-
+public:
+    int x, y;
+    Point(int x=0, int y=0);
+    void PrintCoordinates();
 };
 
+class Vector : public Point {
+public:
+    using Point::Point;
+    Vector operator+(Vector vec);
+    Vector operator-(Vector vec);
+    Vector operator*(int scalar);
+};
 
-float Vector::magnitude() {
+Point::Point(int x, int y) {
+    this->x = x;
+    this->y = y;
+};
 
-    return sqrt(x*x + y*y);
+void Point::PrintCoordinates() {
+    cout << "(" << x << ", " << y << ")" << endl;
+};
 
-}
-Vector Vector::Normalize() {
-    
-    Vector resultVector;
+Vector Vector::operator+(Vector vec) {
+    Vector result;
+    result.x = x + vec.x;
+    result.y = y + vec.y;
+    return result;
+};
 
-    float length = magnitude();
-    resultVector.x = x / length;
-    resultVector.y = y / length;
+Vector Vector::operator-(Vector vec) {
+    Vector result;
+    result.x = x - vec.x;
+    result.y = y - vec.y;
+    return result;
+};
 
-    return resultVector;
-
-}
-
-Vector Vector::AddVector(Vector vec) {
-
-    Vector newVector;
-
-    newVector.x = x + vec.x;
-    newVector.y = y + vec.y;
-
-    return newVector;
-}
-
-Point Point::AddVector(Vector vec) {
-    Point newPoint;
-
-    newPoint.x = x + vec.x;
-    newPoint.y = y + vec.y;
-
-    return newPoint;
-}
-
+Vector Vector::operator*(int scalar) {
+    Vector result;
+    result.x = x * scalar;
+    result.y = y * scalar;
+    return result;
+};
 
 int main() {
 
-    Point A;
-    A.x = 3;
-    A.y = 4;
+    Vector p1(1, 2), p2(3, 4);
+    p1.PrintCoordinates();
+    p2.PrintCoordinates();
+    Vector p3 = p1 + p2;
+    p3.PrintCoordinates();
+    return 0;
 
-    Vector B;
-    B.x = 2;
-    B.y = 4;
-
-    Point C = A.AddVector(B);
-    
-    cout << "(" << C.x << ", " << C.y << ")" << endl;
-    cout << B.magnitude() << endl;
-    cout << B.Normalize().magnitude() << endl;
-
-}
+};
