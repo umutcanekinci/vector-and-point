@@ -14,6 +14,8 @@ public:
     Vector operator+(Vector vec);
     Vector operator-(Vector vec);
     Vector operator*(int scalar);
+    float magnitude();
+    Vector normalize();
 };
 
 Point::Point(int x, int y) {
@@ -46,6 +48,18 @@ Vector Vector::operator*(int scalar) {
     return result;
 };
 
+float Vector::magnitude() {
+    return sqrt(x*x + y*y);
+};
+
+Vector Vector::normalize() {
+    float mag = magnitude();
+    Vector result;
+    result.x = x / mag;
+    result.y = y / mag;
+    return result;
+};
+
 int main() {
 
     Vector p1(1, 2), p2(3, 4);
@@ -53,6 +67,15 @@ int main() {
     p2.PrintCoordinates();
     Vector p3 = p1 + p2;
     p3.PrintCoordinates();
+    Vector p4 = p1 - p2;
+    p4.PrintCoordinates();
+    Vector p5 = p1 * 2;
+    p5.PrintCoordinates();
+    cout << p1.magnitude() << endl;
+    Vector p6 = p1.normalize();
+    p6.PrintCoordinates();
+    cout << p6.magnitude() << endl;
+    
     return 0;
 
 };
