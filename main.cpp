@@ -3,8 +3,8 @@ using namespace std;
 
 class Point {
 public:
-    int x, y;
-    Point(int x=0, int y=0);
+    float x, y;
+    Point(float x=0, float y=0);
     void PrintCoordinates();
 };
 
@@ -18,9 +18,9 @@ public:
     Vector normalize();
 };
 
-Point::Point(int x, int y) {
-    this->x = x;
-    this->y = y;
+Point::Point(float x, float y) {
+    this -> x = x;
+    this -> y = y;
 };
 
 void Point::PrintCoordinates() {
@@ -75,7 +75,7 @@ int main() {
     Vector p6 = p1.normalize();
     p6.PrintCoordinates();
     cout << p6.magnitude() << endl;
-    
+
     return 0;
 
 };
