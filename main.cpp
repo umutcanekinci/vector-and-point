@@ -5,7 +5,7 @@ class Point {
 public:
     float x, y;
     Point(float x=0, float y=0);
-    void PrintCoordinates();
+    void printCoordinates();
 };
 
 class Vector : public Point {
@@ -14,16 +14,21 @@ public:
     Vector operator+(Vector vec);
     Vector operator-(Vector vec);
     Vector operator*(int scalar);
+    Vector operator/(int scalar);
     float magnitude();
+    float magnitudeSquared();
     Vector normalize();
 };
+
+
+
 
 Point::Point(float x, float y) {
     this -> x = x;
     this -> y = y;
 };
 
-void Point::PrintCoordinates() {
+void Point::printCoordinates() {
     cout << "(" << x << ", " << y << ")" << endl;
 };
 
@@ -48,8 +53,19 @@ Vector Vector::operator*(int scalar) {
     return result;
 };
 
+Vector Vector::operator/(int scalar) {
+    Vector result;
+    result.x = x / scalar;
+    result.y = y / scalar;
+    return result;
+};
+
 float Vector::magnitude() {
     return sqrt(x*x + y*y);
+};
+
+float Vector::magnitudeSquared() {
+    return x*x + y*y;
 };
 
 Vector Vector::normalize() {
@@ -60,21 +76,33 @@ Vector Vector::normalize() {
     return result;
 };
 
+
+
+
+
+
+
+
+
 int main() {
 
-    Vector p1(1, 2), p2(3, 4);
-    p1.PrintCoordinates();
-    p2.PrintCoordinates();
-    Vector p3 = p1 + p2;
-    p3.PrintCoordinates();
-    Vector p4 = p1 - p2;
-    p4.PrintCoordinates();
-    Vector p5 = p1 * 2;
-    p5.PrintCoordinates();
-    cout << p1.magnitude() << endl;
-    Vector p6 = p1.normalize();
-    p6.PrintCoordinates();
-    cout << p6.magnitude() << endl;
+    int movementSpeed = 5;
+
+    Vector position = Vector(1, 2);
+    Vector velocity = Vector(3, 4).normalize() * movementSpeed;
+    Vector friction = Vector(0.1, 0.1);
+
+    position.printCoordinates();
+    velocity.printCoordinates();
+    friction.printCoordinates();
+
+    position = position + velocity - friction;
+
+    position.printCoordinates();
+    velocity.printCoordinates();
+    friction.printCoordinates();
+
+    cout << "Magnitude: " << position.magnitude() << endl;
 
     return 0;
 
